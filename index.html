@@ -178,7 +178,7 @@
     .hero-stats {
       position: absolute;
       right: 5%;
-      bottom: 10%;
+      bottom: 28%;
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 16px;
@@ -188,20 +188,48 @@
     .stat-card {
       background: rgba(255,255,255,0.15);
       border: 1px solid rgba(255,255,255,0.3);
-      border-radius: 8px;
-      padding: 18px 24px;
+      border-radius: 10px;
+      padding: 28px 36px;
       text-align: center;
       backdrop-filter: blur(4px);
+      position: relative;
+      overflow: hidden;
     }
+    .stat-card::after {
+      content: '';
+      position: absolute;
+      top: 0; left: -100%;
+      width: 60%;
+      height: 100%;
+      background: linear-gradient(
+        120deg,
+        transparent 0%,
+        rgba(255,255,255,0.08) 40%,
+        rgba(255,255,255,0.25) 50%,
+        rgba(255,255,255,0.08) 60%,
+        transparent 100%
+      );
+      animation: shimmer 3s ease-in-out infinite;
+    }
+    .stat-card:nth-child(2)::after { animation-delay: 0.75s; }
+    .stat-card:nth-child(3)::after { animation-delay: 1.5s; }
+    .stat-card:nth-child(4)::after { animation-delay: 2.25s; }
+
+    @keyframes shimmer {
+      0%   { left: -100%; }
+      60%  { left: 150%; }
+      100% { left: 150%; }
+    }
+
     .stat-num {
       font-family: 'Rajdhani', sans-serif;
-      font-size: 2.4rem;
+      font-size: 2.8rem;
       font-weight: 700;
       color: var(--white);
       line-height: 1;
     }
     .stat-label {
-      font-size: 0.72rem;
+      font-size: 0.75rem;
       color: rgba(255,255,255,0.75);
       text-transform: uppercase;
       letter-spacing: 1px;
@@ -1060,19 +1088,19 @@
       <form onsubmit="handleSubmit(event)">
         <div class="form-group">
           <label>Nome</label>
-          <input type="text" placeholder="Seu nome" required />
+          <input type="text" name="nome" placeholder="Seu nome" required />
         </div>
         <div class="form-group">
           <label>E-mail</label>
-          <input type="email" placeholder="seu@email.com" required />
+          <input type="email" name="email" placeholder="seu@email.com" required />
         </div>
         <div class="form-group">
           <label>Empresa</label>
-          <input type="text" placeholder="Nome da empresa" />
+          <input type="text" name="empresa" placeholder="Nome da empresa" />
         </div>
         <div class="form-group">
           <label>Serviço de Interesse</label>
-          <select>
+          <select name="servico">
             <option value="">Selecione um serviço...</option>
             <option>Backup &amp; Restore</option>
             <option>Performance</option>
@@ -1087,7 +1115,7 @@
         </div>
         <div class="form-group">
           <label>Mensagem</label>
-          <textarea placeholder="Descreva sua necessidade..."></textarea>
+          <textarea name="mensagem" placeholder="Descreva sua necessidade..."></textarea>
         </div>
         <button type="submit" class="form-submit">Enviar Mensagem</button>
       </form>
@@ -1117,34 +1145,50 @@
     });
   });
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
     const f = e.target;
-    const nome    = f.querySelector('input[type="text"]').value;
-    const email   = f.querySelector('input[type="email"]').value;
-    const empresa = f.querySelectorAll('input[type="text"]')[1]?.value || '';
-    const servico = f.querySelector('select').value;
-    const msg     = f.querySelector('textarea').value;
-
-    const subject = encodeURIComponent('Contato O2Bro — ' + (servico || 'Consultoria Oracle'));
-    const body = encodeURIComponent(
-      'Nome: ' + nome + '\n' +
-      'E-mail: ' + email + '\n' +
-      'Empresa: ' + empresa + '\n' +
-      'Serviço: ' + servico + '\n\n' +
-      'Mensagem:\n' + msg
-    );
-
-    window.location.href = 'mailto:jvaldezio@gmail.com?subject=' + subject + '&body=' + body;
-
     const btn = f.querySelector('.form-submit');
-    btn.textContent = 'Abrindo seu e-mail... ✓';
-    btn.style.background = '#22c55e';
-    setTimeout(() => {
-      btn.textContent = 'Enviar Mensagem';
-      btn.style.background = '';
-      f.reset();
-    }, 3000);
+
+    btn.textContent = 'Enviando...';
+    btn.disabled = true;
+
+    const data = {
+      nome:     f.nome.value,
+      email:    f.email.value,
+      empresa:  f.empresa.value,
+      servico:  f.servico.value,
+      mensagem: f.mensagem.value
+    };
+
+    try {
+      const res = await fetch('https://formspree.io/f/xbdvnryk', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify(data)
+      });
+
+      if (res.ok) {
+        btn.textContent = 'Mensagem enviada!';
+        btn.style.background = '#22c55e';
+        f.reset();
+        setTimeout(() => {
+          btn.textContent = 'Enviar Mensagem';
+          btn.style.background = '';
+          btn.disabled = false;
+        }, 4000);
+      } else {
+        throw new Error('Erro no envio');
+      }
+    } catch {
+      btn.textContent = 'Erro — tente novamente';
+      btn.style.background = '#CC0000';
+      btn.disabled = false;
+      setTimeout(() => {
+        btn.textContent = 'Enviar Mensagem';
+        btn.style.background = '';
+      }, 4000);
+    }
   }
 </script>
 
