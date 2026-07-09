@@ -1,0 +1,1152 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>O2Bro IT Business — Oracle DBA Especialista</title>
+  <meta name="description" content="Consultoria Oracle DBA sob demanda. Alta disponibilidade, performance, backup e muito mais, com custo acessível para o seu negócio." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --orange: #E84B1A;
+      --orange-dark: #C03D10;
+      --orange-light: #F06030;
+      --red: #CC0000;
+      --gray-dark: #1a1a1a;
+      --gray: #333;
+      --gray-mid: #555;
+      --gray-light: #999;
+      --silver: #ccc;
+      --white: #fff;
+      --bg: #f7f7f7;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      color: var(--gray-dark);
+      background: var(--white);
+      overflow-x: hidden;
+    }
+
+    /* ── NAVBAR ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 5%;
+      height: 110px;
+      background: rgba(255,255,255,0.97);
+      backdrop-filter: blur(8px);
+      border-bottom: 3px solid var(--orange);
+      box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      list-style: none;
+    }
+    .nav-links a {
+      color: var(--gray);
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--red); }
+
+    .nav-cta {
+      background: var(--orange);
+      color: var(--white) !important;
+      padding: 8px 20px;
+      border-radius: 4px;
+      transition: background 0.2s !important;
+    }
+    .nav-cta:hover { background: var(--orange-dark) !important; color: var(--white) !important; }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      background: linear-gradient(130deg, var(--orange) 0%, var(--orange-dark) 100%);
+      position: relative;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    /* Circuit decoration — left side, like no PDF */
+    .circuit-svg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0.12;
+      pointer-events: none;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      padding: 100px 5% 60px;
+      max-width: 720px;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      background: rgba(255,255,255,0.2);
+      color: var(--white);
+      border: 1px solid rgba(255,255,255,0.4);
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      padding: 6px 14px;
+      border-radius: 2px;
+      margin-bottom: 24px;
+    }
+
+    .hero-title {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: clamp(2.4rem, 5vw, 4rem);
+      font-weight: 700;
+      color: var(--white);
+      line-height: 1.1;
+      margin-bottom: 20px;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    }
+    .hero-title .highlight { color: var(--white); opacity: 0.9; }
+
+    .hero-sub {
+      font-size: 1.05rem;
+      color: rgba(255,255,255,0.88);
+      line-height: 1.8;
+      margin-bottom: 40px;
+      max-width: 600px;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      background: var(--white);
+      color: var(--orange);
+      padding: 14px 32px;
+      border-radius: 4px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 0.9rem;
+      letter-spacing: 0.5px;
+      transition: background 0.2s, transform 0.15s;
+      display: inline-block;
+    }
+    .btn-primary:hover { background: #f0f0f0; transform: translateY(-1px); }
+
+    .btn-ghost {
+      border: 2px solid rgba(255,255,255,0.6);
+      color: var(--white);
+      padding: 14px 32px;
+      border-radius: 4px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.9rem;
+      transition: border-color 0.2s, background 0.2s;
+      display: inline-block;
+    }
+    .btn-ghost:hover { border-color: var(--white); background: rgba(255,255,255,0.1); }
+
+    .hero-stats {
+      position: absolute;
+      right: 5%;
+      bottom: 10%;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      z-index: 2;
+    }
+
+    .stat-card {
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.3);
+      border-radius: 8px;
+      padding: 18px 24px;
+      text-align: center;
+      backdrop-filter: blur(4px);
+    }
+    .stat-num {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 2.4rem;
+      font-weight: 700;
+      color: var(--white);
+      line-height: 1;
+    }
+    .stat-label {
+      font-size: 0.72rem;
+      color: rgba(255,255,255,0.75);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-top: 4px;
+    }
+
+    .scroll-hint {
+      position: absolute;
+      bottom: 28px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      color: rgba(255,255,255,0.6);
+      font-size: 0.72rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+    .scroll-hint::after {
+      content: '';
+      width: 1px;
+      height: 40px;
+      background: linear-gradient(to bottom, rgba(255,255,255,0.6), transparent);
+      animation: scrollDown 1.8s ease infinite;
+    }
+    @keyframes scrollDown { 0%,100%{opacity:1;transform:scaleY(1)} 50%{opacity:0.3;transform:scaleY(0.5)} }
+
+    /* ── SECTIONS COMMON ── */
+    section { padding: 90px 5%; }
+
+    .section-tag {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--orange);
+      margin-bottom: 12px;
+    }
+
+    .section-title {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+      font-weight: 700;
+      color: var(--red);
+      line-height: 1.2;
+      margin-bottom: 16px;
+    }
+
+    .divider {
+      width: 48px;
+      height: 3px;
+      background: var(--red);
+      margin-bottom: 24px;
+    }
+
+    /* ── CIRCUIT lateral nas seções — igual ao PDF ── */
+    .with-circuit {
+      position: relative;
+      overflow: hidden;
+    }
+    .with-circuit::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 220px;
+      background-image:
+        radial-gradient(circle, #ddd 1px, transparent 1px),
+        linear-gradient(90deg, transparent 18px, #e0e0e0 18px, #e0e0e0 19px, transparent 19px),
+        linear-gradient(180deg, transparent 28px, #e0e0e0 28px, #e0e0e0 29px, transparent 29px);
+      background-size: 22px 22px, 100% 100%, 100% 100%;
+      opacity: 0.5;
+      pointer-events: none;
+    }
+
+    /* ── SOBRE NÓS ── */
+    #sobre {
+      background: var(--white);
+    }
+
+    .sobre-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: start;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .sobre-text p {
+      font-size: 1rem;
+      line-height: 1.8;
+      color: var(--gray-mid);
+      margin-bottom: 20px;
+    }
+
+    .quote-block {
+      border-left: 3px solid var(--orange);
+      padding: 20px 24px;
+      background: #fafafa;
+      border-radius: 0 8px 8px 0;
+      margin-bottom: 20px;
+    }
+    .quote-block p {
+      font-style: italic;
+      color: var(--gray) !important;
+      margin: 0 0 10px !important;
+    }
+    .quote-author {
+      font-weight: 600;
+      font-size: 0.85rem !important;
+      color: var(--orange) !important;
+      font-style: normal !important;
+    }
+
+    .certs-panel {
+      background: var(--gray-dark);
+      border-radius: 12px;
+      padding: 36px;
+      color: var(--white);
+    }
+    .certs-panel h3 {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 1.2rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--silver);
+      margin-bottom: 24px;
+    }
+
+    .cert-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      padding: 14px 0;
+      border-bottom: 1px solid #333;
+    }
+    .cert-item:last-child { border-bottom: none; }
+
+    .cert-badge {
+      width: 40px;
+      height: 40px;
+      background: var(--orange);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 1.1rem;
+    }
+
+    .cert-info strong {
+      display: block;
+      font-size: 0.88rem;
+      color: var(--white);
+      margin-bottom: 2px;
+    }
+    .cert-info span {
+      font-size: 0.75rem;
+      color: var(--gray-light);
+    }
+
+    .skills-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 24px;
+    }
+    .tag {
+      background: rgba(232,75,26,0.15);
+      color: var(--orange-light);
+      border: 1px solid rgba(232,75,26,0.3);
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 5px 12px;
+      border-radius: 20px;
+    }
+
+    /* ── MISSÃO ── */
+    #missao {
+      background: linear-gradient(135deg, var(--orange) 0%, var(--orange-dark) 100%);
+      position: relative;
+      overflow: hidden;
+    }
+    #missao::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    }
+
+    .missao-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      max-width: 1000px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .missao-card {
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 12px;
+      padding: 36px;
+      backdrop-filter: blur(4px);
+    }
+
+    .missao-card h3 {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--white);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .missao-card h3 .icon {
+      font-size: 1.4rem;
+    }
+
+    .missao-card p {
+      font-size: 0.95rem;
+      line-height: 1.8;
+      color: rgba(255,255,255,0.85);
+    }
+
+    /* ── SERVIÇOS ── */
+    #servicos {
+      background: var(--bg);
+    }
+
+    .services-header {
+      text-align: center;
+      max-width: 600px;
+      margin: 0 auto 56px;
+    }
+    .services-header .divider { margin: 0 auto 24px; }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 24px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .service-card {
+      background: var(--white);
+      border-radius: 10px;
+      padding: 32px 28px;
+      border: 1px solid #eee;
+      border-top: 3px solid transparent;
+      transition: border-color 0.25s, box-shadow 0.25s, transform 0.2s;
+      cursor: default;
+    }
+    .service-card:hover {
+      border-top-color: var(--red);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+      transform: translateY(-3px);
+    }
+
+    .service-icon {
+      width: 52px;
+      height: 52px;
+      background: linear-gradient(135deg, var(--orange), var(--orange-dark));
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      margin-bottom: 20px;
+    }
+
+    .service-card h3 {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--red);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 12px;
+    }
+
+    .service-card p {
+      font-size: 0.88rem;
+      line-height: 1.7;
+      color: var(--gray-mid);
+    }
+
+    /* ── DIFERENCIAIS ── */
+    #diferenciais {
+      background: var(--white);
+      border-top: 1px solid #eee;
+      border-bottom: 1px solid #eee;
+    }
+
+    .diferenciais-header {
+      text-align: center;
+      max-width: 600px;
+      margin: 0 auto 56px;
+    }
+    .diferenciais-header .section-title { color: var(--red); }
+    .diferenciais-header .section-tag { color: var(--orange); }
+    .diferenciais-header .divider { margin: 0 auto 24px; background: var(--red); }
+
+    .diferenciais-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .dif-item {
+      text-align: center;
+      padding: 32px 20px;
+      border-right: 1px solid #eee;
+    }
+    .dif-item:last-child { border-right: none; }
+    .dif-num {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 3.5rem;
+      font-weight: 700;
+      color: var(--orange);
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+    .dif-title {
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: var(--gray-dark);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 10px;
+    }
+    .dif-text {
+      font-size: 0.83rem;
+      color: var(--gray-mid);
+      line-height: 1.7;
+    }
+
+    /* ── CONTATO ── */
+    #contato {
+      background: var(--white);
+    }
+
+    .contato-wrapper {
+      max-width: 1000px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: start;
+    }
+
+    .contato-info .section-title { margin-bottom: 24px; }
+
+    .contact-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    .contact-icon {
+      width: 44px;
+      height: 44px;
+      background: var(--orange);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      flex-shrink: 0;
+    }
+    .contact-item strong {
+      display: block;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--gray-light);
+      margin-bottom: 3px;
+    }
+    .contact-item a, .contact-item span {
+      font-size: 0.95rem;
+      color: var(--gray-dark);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .contact-item a:hover { color: var(--orange); }
+
+    .contact-form {
+      background: #fafafa;
+      border-radius: 12px;
+      padding: 36px;
+      border: 1px solid #eee;
+    }
+    .contact-form h3 {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--gray-dark);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 24px;
+    }
+
+    .form-group {
+      margin-bottom: 16px;
+    }
+    .form-group label {
+      display: block;
+      font-size: 0.78rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--gray-mid);
+      margin-bottom: 6px;
+    }
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      width: 100%;
+      padding: 11px 14px;
+      border: 1.5px solid #ddd;
+      border-radius: 6px;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.9rem;
+      color: var(--gray-dark);
+      background: var(--white);
+      transition: border-color 0.2s;
+      outline: none;
+    }
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus { border-color: var(--orange); }
+    .form-group textarea { resize: vertical; min-height: 100px; }
+
+    .form-submit {
+      width: 100%;
+      background: var(--orange);
+      color: var(--white);
+      border: none;
+      padding: 14px;
+      border-radius: 6px;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      cursor: pointer;
+      transition: background 0.2s;
+      margin-top: 8px;
+    }
+    .form-submit:hover { background: var(--orange-dark); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--white);
+      padding: 36px 5% 28px;
+      text-align: center;
+      position: relative;
+    }
+    /* dots bar — igual ao PDF */
+    footer::before {
+      content: '';
+      display: block;
+      height: 18px;
+      width: 45%;
+      background-image: radial-gradient(circle, #555 1.2px, transparent 1.2px);
+      background-size: 7px 7px;
+      margin-bottom: 0;
+      position: absolute;
+      bottom: 0; left: 0;
+    }
+    /* red line — igual ao PDF */
+    footer::after {
+      content: '';
+      display: block;
+      height: 2px;
+      background: var(--red);
+      position: absolute;
+      bottom: 0;
+      left: 0; right: 0;
+    }
+    .footer-logo {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--gray-dark);
+      margin-bottom: 8px;
+    }
+    .footer-logo span { color: var(--orange); }
+    footer p {
+      font-size: 0.8rem;
+      color: var(--gray-light);
+      margin-top: 6px;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .sobre-grid, .missao-grid, .diferenciais-grid, .contato-wrapper {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+      .hero-stats { display: none; }
+      nav .nav-links { display: none; }
+    }
+
+    @media (max-width: 600px) {
+      section { padding: 64px 6%; }
+      .hero-content { padding: 90px 6% 60px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#hero" class="nav-logo">
+    <img src="O2bro_logo-removebg.png" alt="O2Bro IT Business" style="height:92px;width:auto;" />
+  </a>
+  <ul class="nav-links">
+    <li><a href="#sobre">Sobre</a></li>
+    <li><a href="#servicos">Serviços</a></li>
+    <li><a href="#diferenciais">Diferenciais</a></li>
+    <li><a href="#contato" class="nav-cta">Fale Conosco</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <svg class="circuit-svg" viewBox="0 0 1400 800" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+    <g stroke="#ffffff" stroke-width="1" fill="none">
+      <line x1="0" y1="200" x2="300" y2="200"/>
+      <line x1="300" y1="200" x2="300" y2="100"/>
+      <line x1="300" y1="100" x2="500" y2="100"/>
+      <line x1="500" y1="100" x2="500" y2="300"/>
+      <line x1="500" y1="300" x2="800" y2="300"/>
+      <line x1="800" y1="300" x2="800" y2="150"/>
+      <line x1="800" y1="150" x2="1100" y2="150"/>
+      <line x1="1100" y1="150" x2="1100" y2="400"/>
+      <line x1="1100" y1="400" x2="1400" y2="400"/>
+      <line x1="0" y1="500" x2="200" y2="500"/>
+      <line x1="200" y1="500" x2="200" y2="350"/>
+      <line x1="200" y1="350" x2="600" y2="350"/>
+      <line x1="600" y1="350" x2="600" y2="550"/>
+      <line x1="600" y1="550" x2="900" y2="550"/>
+      <line x1="900" y1="550" x2="900" y2="250"/>
+      <line x1="900" y1="250" x2="1200" y2="250"/>
+      <line x1="1200" y1="250" x2="1200" y2="600"/>
+      <line x1="1200" y1="600" x2="1400" y2="600"/>
+      <line x1="100" y1="650" x2="400" y2="650"/>
+      <line x1="400" y1="650" x2="400" y2="450"/>
+      <line x1="400" y1="450" x2="700" y2="450"/>
+      <line x1="700" y1="450" x2="700" y2="700"/>
+      <line x1="700" y1="700" x2="1000" y2="700"/>
+      <line x1="1000" y1="700" x2="1000" y2="500"/>
+      <line x1="1000" y1="500" x2="1300" y2="500"/>
+      <circle cx="300" cy="200" r="4" fill="#ffffff"/>
+      <circle cx="500" cy="100" r="4" fill="#ffffff"/>
+      <circle cx="800" cy="150" r="4" fill="#ffffff"/>
+      <circle cx="200" cy="500" r="4" fill="#ffffff"/>
+      <circle cx="600" cy="350" r="4" fill="#ffffff"/>
+      <circle cx="900" cy="250" r="4" fill="#ffffff"/>
+      <circle cx="400" cy="450" r="4" fill="#ffffff"/>
+      <circle cx="700" cy="700" r="4" fill="#ffffff"/>
+      <circle cx="1000" cy="500" r="4" fill="#ffffff"/>
+      <circle cx="1100" cy="400" r="4" fill="#ffffff"/>
+    </g>
+  </svg>
+
+  <div class="hero-content">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:24px;">
+      <div class="hero-badge" style="margin-bottom:0;">Oracle DBA as a Service</div>
+      <div style="font-family:'Rajdhani',sans-serif;font-size:1.1rem;font-weight:700;color:rgba(255,255,255,0.5);letter-spacing:2px;">DBAaaS</div>
+    </div>
+    <h1 class="hero-title">
+      Seus dados estão<br/>
+      <span class="highlight">protegidos?</span>
+    </h1>
+    <p class="hero-sub">
+      Consultoria Oracle especializada, sob demanda e com custo acessível.
+      Disponibilidade, performance e segurança para o seu banco de dados —
+      sem precisar de um DBA full time.
+    </p>
+    <div class="hero-actions">
+      <a href="#contato" class="btn-primary">Solicitar Orçamento</a>
+      <a href="#servicos" class="btn-ghost">Ver Serviços</a>
+    </div>
+  </div>
+
+  <div class="hero-stats">
+    <div class="stat-card">
+      <div class="stat-num">20+</div>
+      <div class="stat-label">Anos de Experiência</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">100%</div>
+      <div class="stat-label">Foco no Cliente</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">24/7</div>
+      <div class="stat-label">Alta Disponibilidade</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">∞</div>
+      <div class="stat-label">Comprometimento</div>
+    </div>
+  </div>
+
+  <div class="scroll-hint">Scroll</div>
+</section>
+
+<!-- SOBRE NÓS -->
+<section id="sobre" class="with-circuit">
+  <div class="sobre-grid">
+    <div class="sobre-text">
+      <div class="section-tag">Quem Somos</div>
+      <h2 class="section-title">Experiência que<br/>protege seu negócio.</h2>
+      <div class="divider"></div>
+      <p>
+        A O2Bro é uma consultoria especializada em Oracle Database, com mais de 20 anos de
+        atuação em ambientes críticos de grandes empresas. Nossa expertise abrange todo o
+        ciclo de vida do banco de dados — do planejamento à operação contínua.
+      </p>
+      <p>
+        Executamos projetos de <strong>migração e upgrade</strong> de bancos Oracle com estratégias
+        que minimizam downtime e garantem integridade total dos dados. Aplicamos <strong>patches e
+        atualizações</strong> de segurança com metodologia estruturada, mantendo os ambientes
+        sempre dentro do ciclo de suporte Oracle.
+      </p>
+      <p>
+        Em <strong>performance</strong>, identificamos gargalos com análise profunda de AWR, ASH e planos
+        de execução — entregando diagnósticos precisos e soluções que impactam diretamente
+        o desempenho das aplicações de negócio. Nossas <strong>estratégias de backup e recovery</strong>
+        são desenhadas sob medida para cada ambiente, assegurando continuidade operacional
+        e conformidade com os requisitos de RTO e RPO definidos pelo cliente.
+      </p>
+      <p>
+        Atuamos como parceiros técnicos de confiança, com foco em redução de custos,
+        prevenção de falhas e tomada de decisão embasada em dados — entregando o nível
+        de serviço de grandes operações, na escala certa para o seu negócio.
+      </p>
+    </div>
+
+    <div>
+      <div class="certs-panel">
+        <h3>Por que a O2Bro?</h3>
+        <div class="cert-item">
+          <div class="cert-badge">💡</div>
+          <div class="cert-info">
+            <strong>Expertise de grandes empresas</strong>
+            <span>Experiência acumulada em ambientes críticos de alto porte</span>
+          </div>
+        </div>
+        <div class="cert-item">
+          <div class="cert-badge">🎯</div>
+          <div class="cert-info">
+            <strong>Atendimento personalizado</strong>
+            <span>Cada cliente tem sua estratégia definida em conjunto</span>
+          </div>
+        </div>
+        <div class="cert-item">
+          <div class="cert-badge">📈</div>
+          <div class="cert-info">
+            <strong>Atuação sob demanda</strong>
+            <span>Elástico e escalonável — você paga pelo que precisa</span>
+          </div>
+        </div>
+        <div class="cert-item">
+          <div class="cert-badge">🔒</div>
+          <div class="cert-info">
+            <strong>Foco em segurança e continuidade</strong>
+            <span>Banco de dados disponível, protegido e performático</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MISSÃO -->
+<section id="missao">
+  <div class="missao-grid">
+    <div class="missao-card">
+      <h3><span class="icon">🎯</span> Missão</h3>
+      <p>
+        Ser uma opção de custo acessível às empresas que não precisam de um profissional dedicado full time,
+        oferecendo os benefícios e as vantagens de ter uma atuação elástica e escalonável sob demanda.
+        Você tem o DBA expert quando precisa, sem os custos fixos de uma contratação.
+      </p>
+    </div>
+    <div class="missao-card">
+      <h3><span class="icon">🤝</span> Ideal</h3>
+      <p>
+        Criar parcerias com empresas dispostas a discutir, analisar e definir propostas juntos,
+        onde nosso papel é abrir o leque de opções para um melhor gerenciamento do ambiente,
+        e o cliente define a estratégia à qual mais se adequa. Parceria real, não fornecedor.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- SERVIÇOS -->
+<section id="servicos" class="with-circuit">
+  <div class="services-header">
+    <div class="section-tag">O que fazemos</div>
+    <h2 class="section-title">Serviços Oracle DBA</h2>
+    <div class="divider"></div>
+    <p style="color:#666;font-size:0.95rem;line-height:1.7;">
+      Disponibilidade, prontidão e proteção dos seus dados — com redução de custos
+      sem abrir mão da qualidade na entrega.
+    </p>
+  </div>
+
+  <div class="services-grid">
+    <div class="service-card">
+      <div class="service-icon">💾</div>
+      <h3>Backup &amp; Restore</h3>
+      <p>
+        Estratégias personalizadas para continuidade do seu negócio. Preparado para um crash de disco,
+        falha de hardware ou um delete acidental? Definimos a melhor abordagem alinhada aos seus custos e SLA.
+      </p>
+    </div>
+
+    <div class="service-card">
+      <div class="service-icon">⚡</div>
+      <h3>Performance</h3>
+      <p>
+        Diagnóstico e otimização de queries lentas, planos de execução, índices e AWR/ASH.
+        Volume de dados sempre muda — nós identificamos o gargalo e atuamos no ponto certo.
+      </p>
+    </div>
+
+    <div class="service-card">
+      <div class="service-icon">📊</div>
+      <h3>Monitoramento</h3>
+      <p>
+        Scripts e alertas proativos: uso de disco, tablespaces, serviços críticos e erros no alert log.
+        Identificamos riscos antes que virem paradas — seu negócio funcionando sem surpresas.
+      </p>
+    </div>
+
+    <div class="service-card">
+      <div class="service-icon">🗄️</div>
+      <h3>Gerenciamento de Espaço</h3>
+      <p>
+        Análise de crescimento do banco, identificação dos objetos que mais consomem storage,
+        estratégias de purge e otimização para reduzir custos com armazenamento.
+      </p>
+    </div>
+
+    <div class="service-card">
+      <div class="service-icon">🔧</div>
+      <h3>Resolução de Problemas</h3>
+      <p>
+        Problemas não têm hora certa. Atuamos na resolução de erros de database, bugs, falhas
+        de aplicação e hardware — mantendo o ambiente estável e disponível o máximo possível.
+      </p>
+    </div>
+
+    <div class="service-card">
+      <div class="service-icon">👨‍💻</div>
+      <h3>Apoio ao Desenvolvimento</h3>
+      <p>
+        Suporte técnico para equipes de desenvolvimento em Oracle SQL, PL/SQL, funções analíticas,
+        tuning de queries e modelagem. Parceria entre DBA e Dev para melhores resultados.
+      </p>
+    </div>
+
+    <div class="service-card">
+      <div class="service-icon">🚀</div>
+      <h3>Migração &amp; Upgrades</h3>
+      <p>
+        Migrações para novo hardware com <strong>sizing</strong> do ambiente destino, upgrades de versão,
+        consolidação de arquitetura, migrações para Cloud (J2C). Estratégia completa,
+        do dimensionamento à execução, com mínimo de impacto para o seu negócio.
+      </p>
+    </div>
+
+    <div class="service-card">
+      <div class="service-icon">📋</div>
+      <h3>Gerenciamento de Projetos de BD</h3>
+      <p>
+        Auxiliamos no planejamento, definição de escopo e condução de quaisquer projetos
+        envolvendo Oracle Database — desde a concepção técnica até a entrega. Atuamos como
+        referência técnica para garantir que decisões de arquitetura, cronograma e recursos
+        estejam alinhados com as necessidades reais do seu ambiente e negócio.
+      </p>
+    </div>
+
+    <div class="service-card">
+      <div class="service-icon">🔄</div>
+      <h3>Alta Disponibilidade</h3>
+      <p>
+        Arquiteturas 24x7 eliminando pontos únicos de falha: Oracle RAC, Data Guard, Active Data Guard
+        e Oracle GoldenGate. Negócio sempre no ar, mesmo em cenários críticos.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- DIFERENCIAIS -->
+<section id="diferenciais">
+  <div class="diferenciais-header">
+    <div class="section-tag">Por que a O2Bro</div>
+    <h2 class="section-title">Nossos Diferenciais</h2>
+    <div class="divider"></div>
+  </div>
+
+  <div class="diferenciais-grid">
+    <div class="dif-item">
+      <div class="dif-num">valor<br/>técnico</div>
+      <div class="dif-title">Oracle Certified &amp; ACE</div>
+      <div class="dif-text">
+        Profissionais certificados OCP, OCE e OCA. Reconhecimento Oracle ACE pela Oracle Corporation,
+        que comprova competência técnica e influência no Ecossistema Oracle.
+      </div>
+    </div>
+    <div class="dif-item">
+      <div class="dif-num">sob<br/>demanda</div>
+      <div class="dif-title">Custo Flexível</div>
+      <div class="dif-text">
+        Você contrata a expertise de um DBA sênior sem os custos de uma CLT.
+        Elástico, escalonável, alinhado à sua necessidade real.
+      </div>
+    </div>
+    <div class="dif-item">
+      <div class="dif-num">sem<br/>burocracia</div>
+      <div class="dif-title">Agilidade</div>
+      <div class="dif-text">
+        Atendimento direto com os especialistas. Sem intermediários, sem processos lentos.
+        Decisões e ações rápidas quando você mais precisa.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTATO -->
+<section id="contato">
+  <div style="max-width:640px;margin:0 auto;">
+    <div style="text-align:center;margin-bottom:36px;">
+      <div class="section-tag">Vamos Conversar</div>
+      <h2 class="section-title">Entre em Contato</h2>
+      <div class="divider" style="margin:0 auto 0;"></div>
+    </div>
+
+    <div class="contact-form">
+      <form onsubmit="handleSubmit(event)">
+        <div class="form-group">
+          <label>Nome</label>
+          <input type="text" placeholder="Seu nome" required />
+        </div>
+        <div class="form-group">
+          <label>E-mail</label>
+          <input type="email" placeholder="seu@email.com" required />
+        </div>
+        <div class="form-group">
+          <label>Empresa</label>
+          <input type="text" placeholder="Nome da empresa" />
+        </div>
+        <div class="form-group">
+          <label>Serviço de Interesse</label>
+          <select>
+            <option value="">Selecione um serviço...</option>
+            <option>Backup &amp; Restore</option>
+            <option>Performance</option>
+            <option>Monitoramento</option>
+            <option>Migração / Upgrade</option>
+            <option>Alta Disponibilidade</option>
+            <option>Gerenciamento de Espaço</option>
+            <option>Apoio ao Desenvolvimento</option>
+            <option>Resolução de Problemas</option>
+            <option>Consultoria Geral</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Mensagem</label>
+          <textarea placeholder="Descreva sua necessidade..."></textarea>
+        </div>
+        <button type="submit" class="form-submit">Enviar Mensagem</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo"><span>O2</span>Bro IT Business</div>
+  <p>Oracle Database Consulting — Especialistas em Alta Disponibilidade</p>
+  <p style="margin-top:16px;">© 2025 O2Bro IT Business. Todos os direitos reservados.</p>
+</footer>
+
+<script>
+  // Smooth active nav highlight
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-links a');
+
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(s => {
+      if (window.scrollY >= s.offsetTop - 100) current = s.id;
+    });
+    navLinks.forEach(a => {
+      a.style.color = a.getAttribute('href') === '#' + current ? 'var(--orange)' : '';
+    });
+  });
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    const f = e.target;
+    const nome    = f.querySelector('input[type="text"]').value;
+    const email   = f.querySelector('input[type="email"]').value;
+    const empresa = f.querySelectorAll('input[type="text"]')[1]?.value || '';
+    const servico = f.querySelector('select').value;
+    const msg     = f.querySelector('textarea').value;
+
+    const subject = encodeURIComponent('Contato O2Bro — ' + (servico || 'Consultoria Oracle'));
+    const body = encodeURIComponent(
+      'Nome: ' + nome + '\n' +
+      'E-mail: ' + email + '\n' +
+      'Empresa: ' + empresa + '\n' +
+      'Serviço: ' + servico + '\n\n' +
+      'Mensagem:\n' + msg
+    );
+
+    window.location.href = 'mailto:jvaldezio@gmail.com?subject=' + subject + '&body=' + body;
+
+    const btn = f.querySelector('.form-submit');
+    btn.textContent = 'Abrindo seu e-mail... ✓';
+    btn.style.background = '#22c55e';
+    setTimeout(() => {
+      btn.textContent = 'Enviar Mensagem';
+      btn.style.background = '';
+      f.reset();
+    }, 3000);
+  }
+</script>
+
+</body>
+</html>
